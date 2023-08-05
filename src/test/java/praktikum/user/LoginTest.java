@@ -7,9 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import praktikum.Methods;
 import praktikum.Steps;
-import praktikum.user.LoginUser;
-import praktikum.user.User;
-import praktikum.user.UserGenerator;
+
 
 public class LoginTest {
     private User user;
@@ -35,7 +33,6 @@ public class LoginTest {
         ValidatableResponse response = steps.login(loginUser);
         accessToken = response.extract().path("accessToken").toString();
         methods.createUserResponse(response, code, status);
-
     }
 
     @Test

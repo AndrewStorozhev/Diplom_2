@@ -8,9 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import praktikum.Methods;
 import praktikum.Steps;
-import praktikum.user.LoginUser;
-import praktikum.user.User;
-import praktikum.user.UserGenerator;
+
 
 import static org.hamcrest.Matchers.equalTo;
 

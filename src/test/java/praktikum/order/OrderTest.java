@@ -18,8 +18,6 @@ public class OrderTest {
     private LoginUser loginUser;
 
     private String accessToken;
-    private int code;
-    private boolean status;
 
     @Before
     public void setUp() {

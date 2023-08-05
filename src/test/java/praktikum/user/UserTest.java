@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import praktikum.Methods;
 import praktikum.Steps;
-import praktikum.user.User;
-import praktikum.user.UserGenerator;
 
 
 public class UserTest {
@@ -65,7 +63,6 @@ public class UserTest {
     @DisplayName("Тестирование регистрации существующего пользователя")
     public void creatureUserDoubleTest() {
         ValidatableResponse responseFirst = steps.create(user);
-        accessToken = responseFirst.extract().path("accessToken").toString();
         methods.createUserResponse(responseFirst, code, status);
 
         ValidatableResponse responseSecond = steps.create(user);

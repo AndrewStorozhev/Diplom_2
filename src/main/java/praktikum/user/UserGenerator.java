@@ -1,7 +1,7 @@
 package praktikum.user;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import praktikum.user.User;
+
 
 public class UserGenerator {
     public static User generic() {
