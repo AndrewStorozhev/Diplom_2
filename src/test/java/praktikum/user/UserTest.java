@@ -14,8 +14,7 @@ public class UserTest {
     private Steps steps;
     private Methods methods;
     private String accessToken;
-    private int code;
-    private boolean status;
+
 
     @Before
     public void setUp() {
@@ -29,7 +28,7 @@ public class UserTest {
     public void creatureUserTest() {
         ValidatableResponse response = steps.create(user);
         accessToken = response.extract().path("accessToken").toString();
-        methods.createUserResponse(response, code, status);
+        methods.createUserResponse(response);
 
     }
 
@@ -63,7 +62,7 @@ public class UserTest {
     @DisplayName("Тестирование регистрации существующего пользователя")
     public void creatureUserDoubleTest() {
         ValidatableResponse responseFirst = steps.create(user);
-        methods.createUserResponse(responseFirst, code, status);
+        methods.createUserResponse(responseFirst);
 
         ValidatableResponse responseSecond = steps.create(user);
 

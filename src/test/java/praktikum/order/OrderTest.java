@@ -30,7 +30,7 @@ public class OrderTest {
     @Test
     @DisplayName("Создание заказа без авторизации")
     public void createOrderWithoutUserTest() {
-        String[] ingredients = {};
+        String ingredients = "";
         ValidatableResponse response = steps.create(ingredients);
         methods.createOrderResponse(response, 400, false);
     }
@@ -54,14 +54,14 @@ public class OrderTest {
         ValidatableResponse loginResponse = steps.login(loginUser);
         accessToken = loginResponse.extract().path("accessToken").toString();
 
-        String[] ingredients = {"61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa70", "61c0c5a71d1f82001bdaaa73"};
+        String ingredients = "{\n\"ingredients\":[\"61c0c5a71d1f82001bdaaa6d\",\n" +
+                "\"61c0c5a71d1f82001bdaaa6f\",\n" +
+                "\"61c0c5a71d1f82001bdaaa72\"]\n}";
 
         ValidatableResponse createOrderResponse = steps.create(accessToken, ingredients);
-
         steps.getOrders(accessToken);
+        methods.assertOrderCreated(createOrderResponse);
 
-        methods.assertOrderCreated(createOrderResponse); //Автотест нашел баг, заказ при авторизации с ингридиентами не проходит выдает ошибку 400, а должен 200.
-        // Заменил код проверки на 400 что бы тест не падал
     }
 
     @Test

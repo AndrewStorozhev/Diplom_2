@@ -41,9 +41,11 @@ public class GetOrderTest {
         ValidatableResponse loginResponse = steps.login(loginUser);
         accessToken = loginResponse.extract().path("accessToken").toString();
 
-        String[] ingredients = {"61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa70", "61c0c5a71d1f82001bdaaa73"};
+        String ingredients = "{\n\"ingredients\":[\"61c0c5a71d1f82001bdaaa6d\",\n" +
+                "\"61c0c5a71d1f82001bdaaa6f\",\n" +
+                "\"61c0c5a71d1f82001bdaaa72\"]\n}";
 
-        ValidatableResponse createOrderResponse = steps.create(accessToken, ingredients);
+        steps.create(accessToken, ingredients);
 
         steps.getOrders(accessToken);
     }

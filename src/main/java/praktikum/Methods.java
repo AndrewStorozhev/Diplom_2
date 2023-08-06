@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class Methods {
     @Step("Проверка кода ответа")
-    public void createUserResponse(ValidatableResponse response, int code, Boolean status) {
+    public void createUserResponse(ValidatableResponse response) {
         response.assertThat().statusCode(200).body("success", is(true));
     }
 
@@ -50,7 +50,7 @@ public class Methods {
 
     @Step("Проверка кода ответа при успешном создании заказа")
     public void assertOrderCreated(ValidatableResponse response) {
-        response.statusCode(400);
+        response.assertThat().statusCode(200).body("success", is(true));
     }
 
     @Step("Проверка кода ответа создания заказа")

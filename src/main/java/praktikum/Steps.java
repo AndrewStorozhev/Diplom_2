@@ -11,6 +11,9 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class Steps extends Config {
 
+    private String createRequestBody(String[] ingredients) {
+        return "{\n\"ingredients\": [" + Arrays.toString(ingredients) + "]\n}";
+    }
 
     @Step("Создание нового пользователя")
     public ValidatableResponse create(User user) {
@@ -74,25 +77,24 @@ public class Steps extends Config {
     }
 
     @Step("Создание заказа неавторизированного пользователя")
-    public ValidatableResponse create(String[] ingredients) {
-        String requestBody = this.createRequestBody(ingredients);
+    public ValidatableResponse create(String ingredients) {
+        //String requestBody = this.createRequestBody(ingredients);
         return given()
                 .spec(getSpec())
                 .when()
-                .body(requestBody)
+                .body(ingredients)
                 .post(ORDER)
                 .then()
                 .log().all();
     }
 
     @Step("Создание заказа авторизированного пользователя")
-    public ValidatableResponse create(String accessToken, String[] ingredients) {
-        String requestBody = this.createRequestBody(ingredients);
+    public ValidatableResponse create(String accessToken, String ingredients) {
         return given()
                 .spec(getSpec())
                 .header("Authorization", accessToken)
                 .when()
-                .body(requestBody)
+                .body(ingredients)
                 .post(ORDER)
                 .then()
                 .log().all();
@@ -115,7 +117,7 @@ public class Steps extends Config {
 
     @Step("Создание заказа авторизированного пользователя без ингридиентов")
     public ValidatableResponse createWithoutIngredients(String accessToken) {
-        String requestBody = this.createRequestBody(new String[0]); // Пустой массив ингредиентов
+        String requestBody = "";
         return given()
                 .spec(getSpec())
                 .header("Authorization", accessToken)
@@ -127,20 +129,6 @@ public class Steps extends Config {
                 .statusCode(400)
                 .and()
                 .body("message", equalTo("Ingredient ids must be provided"));
-    }
-
-    private String createRequestBody(String[] ingredients) {
-        return "{\n\"ingredients\": " + Arrays.toString(ingredients) + "\n}";
-    }
-
-    @Step("Получение ингридиентов")
-    public ValidatableResponse getIngredients() {
-        return given()
-                .spec(getSpec())
-                .when()
-                .get(INGREDIENTS)
-                .then()
-                .log().all();
     }
 
     @Step("Получение заказа")
