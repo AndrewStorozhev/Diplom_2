@@ -3,6 +3,7 @@ package praktikum.user;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import praktikum.Methods;
@@ -39,6 +40,7 @@ public class UpdateTest {
         ValidatableResponse updatedUserResponse = steps.get(accessToken);
 
         updatedUserResponse.body("user.name", equalTo(initialUser.getName())).and().body("user.email", equalTo(userForUpdate.getEmail().toLowerCase()));
+        steps.delete(accessToken);
     }
 
     @Test
